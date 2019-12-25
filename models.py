@@ -1,7 +1,7 @@
 from peewee import *
-from playhouse.postgres_ext import *
+from playhouse.apsw_ext import APSWDatabase
 
-db_handler = PostgresqlExtDatabase("vk_test")
+db_handler = APSWDatabase('file_spam.db')
 
 
 class MyModel(Model):
@@ -16,16 +16,3 @@ class SendedUser(MyModel):
 
 tables = [SendedUser]
 db_handler.create_tables(tables)
-
-db_handler = SqliteDatabase("/home/deax/Загрузки/kate.db")
-
-
-class MyModel1(Model):
-    class Meta:
-        database = db_handler
-
-
-class Friends(MyModel1):
-    _id = PrimaryKeyField()
-    owner_id = IntegerField(null=True)
-    friend_id = IntegerField(null=True)
